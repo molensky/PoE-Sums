@@ -10,3 +10,6 @@
 9) Test input of eight "10"s and make sure the output returns two lists of four elements that add up to 40 ("10 10 10 10" & "10 10 10 10").
 10) Test input list of "15 15 15 10 10 11 9" and make sure the output returns one list of three elements that add up to 40 ("15 15 10").
 11) Go back through the previous tests and check for the total of all elements.
+
+
+<sub> * - Once I entered into the issues that required heavier combinatorial lifting I turned to two different solutions. I initially adapted the code found [here](https://stackoverflow.com/a/7802892) at step 7. I later refactored using this [library](https://www.codeproject.com/Articles/26050/Permutations-Combinations-and-Variations-using-C-G).
