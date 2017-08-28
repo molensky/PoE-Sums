@@ -13,4 +13,4 @@ Command-line tool for Path of Exile that takes a list of quality% and spits out 
 
 
 > <sub>This started out as TDD-Kata that was turned into a (hopefully useful) command-line tool.
-See TDD-Kata.md for Kata instructions.</sub>  
+See [TDD-Kata.md](TDD-Kata.md) for Kata instructions.</sub>  
