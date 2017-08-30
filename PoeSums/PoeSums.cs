@@ -9,6 +9,8 @@ namespace PoeSums
     {
         private const int MaxSingleScore = 20;
         private const int BestTotal = 40;
+        private const int MinCombo = 3;
+
         public List<List<int>> BestMatch { get; } = new List<List<int>>();
         public int Total { get; private set; }
         
@@ -23,7 +25,7 @@ namespace PoeSums
             var numberOfTwenties = inputValues.Count(i => i == MaxSingleScore);
             if (numberOfTwenties > 0)
             {
-                BestMatch.AddRange(Enumerable.Repeat( new[] {MaxSingleScore}.ToList(), numberOfTwenties));
+                BestMatch.AddRange(Enumerable.Repeat( new List<int> {MaxSingleScore}, numberOfTwenties));
                 Total += numberOfTwenties * MaxSingleScore;
             }
 
@@ -36,12 +38,6 @@ namespace PoeSums
             {
                 BestMatch.Add(new List<int>());
                return;
-            }
-
-            if (strippedInputList.Any() && strippedSum == BestTotal)
-            {
-                BestMatch.Add(strippedInputList);
-                return;
             }
             
             var minSum = FindMinFortyCombo(strippedInputList);
@@ -58,15 +54,16 @@ namespace PoeSums
 
         public List<int> FindMinFortyCombo(List<int> inputList)
         {
-            var retVal = new List<int>();
-            for (var i = 3; i <= inputList.Count(); i++)
+            var emptyList = new List<int>();
+            var retVal = emptyList;
+            var comboSize = MinCombo;
+
+            while (!retVal.Any() && comboSize <= inputList.Count)
             {
-                var combos = new Combinations<int>(inputList.ToArray(), i);
-                if (combos.Any(l => l.Sum() == BestTotal))
-                {
-                    retVal = (List<int>) combos.First(l => l.Sum() == BestTotal);
-                    break;
-                }
+                var combos = new Combinations<int>(inputList.ToArray(), comboSize);
+                IEnumerable<int> potential = combos.FirstOrDefault(l => l.Sum() == BestTotal);
+                retVal = (List<int>) potential ?? emptyList;
+                comboSize++;
             }
             return retVal;
         }
