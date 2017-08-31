@@ -37,17 +37,14 @@ namespace PoeSums
             if (NoTwentiesAndStrippedSumBelowThreshold(BestTotal))
             {
                 BestMatch.Add(new List<int>());
-               return;
+                return;
             }
             
             var minSum = FindMinFortyCombo(strippedInputList);
             while (minSum.Any())
             {
                 BestMatch.Add(minSum);
-                foreach (var i in minSum)
-                {
-                    strippedInputList.Remove(i);
-                }
+                minSum.ForEach(i => strippedInputList.Remove(i));
                 minSum = FindMinFortyCombo(strippedInputList);
             }
         }
@@ -61,8 +58,7 @@ namespace PoeSums
             while (!retVal.Any() && comboSize <= inputList.Count)
             {
                 var combos = new Combinations<int>(inputList.ToArray(), comboSize);
-                IEnumerable<int> potential = combos.FirstOrDefault(l => l.Sum() == BestTotal);
-                retVal = (List<int>) potential ?? emptyList;
+                retVal = (List<int>) combos.FirstOrDefault(l => l.Sum() == BestTotal) ?? retVal;
                 comboSize++;
             }
             return retVal;
